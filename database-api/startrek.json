@@ -2,7 +2,7 @@
   "$schema": "https://github.com/Azure/data-api-builder/releases/download/v0.9.7/dab.draft.schema.json",
   "data-source": {
     "database-type": "mssql",
-    "connection-string": "@env('my-connection-string')",
+    "connection-string": "Server=localhost;Database=trek;User ID=sa;Password=myPassword!;",
     "options": {
       "set-session-context": false
     }
@@ -20,17 +20,13 @@
     },
     "host": {
       "cors": {
-        "origins": [],
+        "origins": ["*"],
         "allow-credentials": false
       },
       "authentication": {
-        "provider": "azuread",
-        "jwt": {
-          "audience": "39d186d8-fec4-4419-aadb-0754db068ed0",
-          "issuer": "https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/v2.0"
-        }
+        "provider": "StaticWebApps"
       },
-      "mode": "production"
+      "mode": "development"
     }
   },
   "entities": {

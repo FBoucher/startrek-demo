@@ -1,0 +1,14 @@
+
+services:
+  
+  databaseServer:
+    image: mcr.microsoft.com/mssql/server
+    environment:
+      ACCEPT_EULA: "Y"
+      MYSQL_USER: "frank"
+      MSSQL_SA_PASSWORD: "myPassword!"
+      MSSQL_PID: "Express"
+    ports:
+      - "1433:1433"
+
+
