@@ -3,8 +3,7 @@
 1. dotnet new tool-manifest
 1. dotnet tool install StrawberryShake.Tools
 1. dotnet add package StrawberryShake.Blazor
-1. ~~dotnet add package StrawberryShake.CodeGeneration.CSharp.Analyzer~~
-1. dotnet graphql init https://localhost:5001/graphql/ -n StartrekClient
+2. dotnet graphql init https://localhost:5001/graphql/ -n StartrekClient
 
 
 ```csharp
@@ -24,4 +23,4 @@
 docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=rootP@ssword1" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
 
 
-dab add "Series_Character" --config startrek.json --source "[dbo].[Series_Character]" --source.type "Table" --source.key-fields "CharacterId,SeriesId" --rest "true" --graphql "false" --fields.include "*" --fields.exclude "" --permissions "anonymous:*"
+
