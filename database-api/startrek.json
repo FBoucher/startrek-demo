@@ -3,8 +3,7 @@
   "data-source": {
     "database-type": "mssql",
     "connection-string": "Server=tcp:trekdemo.database.windows.net,1433;Initial Catalog=trek;Persist Security Info=False;User ID=frank;Password=rootP@ssword1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
-    "options": {
-    }
+    "options": {}
   },
   "runtime": {
     "rest": {
@@ -19,7 +18,9 @@
     },
     "host": {
       "cors": {
-        "origins": ["*"],
+        "origins": [
+          "*"
+        ],
         "allow-credentials": false
       },
       "authentication": {
@@ -280,6 +281,44 @@
           ]
         }
       }
+    },
+    "Series_Character": {
+      "source": {
+        "object": "[dbo].[Series_Character]",
+        "type": "table",
+        "key-fields": [
+          "CharacterId",
+          "SeriesId"
+        ]
+      },
+      "graphql": {
+        "enabled": false,
+        "type": {
+          "singular": "Series_Character",
+          "plural": "Series_Characters"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": [
+            {
+              "action": "*",
+              "fields": {
+                "exclude": [
+                  ""
+                ],
+                "include": [
+                  "*"
+                ]
+              }
+            }
+          ]
+        }
+      ]
     }
   }
 }

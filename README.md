@@ -24,3 +24,4 @@
 docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=rootP@ssword1" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
 
 
+dab add "Series_Character" --config startrek.json --source "[dbo].[Series_Character]" --source.type "Table" --source.key-fields "CharacterId,SeriesId" --rest "true" --graphql "false" --fields.include "*" --fields.exclude "" --permissions "anonymous:*"
