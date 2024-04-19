@@ -1,0 +1,12 @@
+query getCharacterBySeries {
+  	series {
+		items {
+			Name
+			character {
+				items {
+					Name
+				}
+			}
+		}
+    }
+}

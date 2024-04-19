@@ -1,10 +1,15 @@
-using startrek_demo.Components;
+using startrekdemo.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5000") });
+
+builder.Services.AddStartrekClient()
+    .ConfigureHttpClient(client => client.BaseAddress = new Uri("http://localhost:5000/graphql"));
 
 var app = builder.Build();
 
