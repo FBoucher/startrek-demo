@@ -1,17 +1,5 @@
 SET NOCOUNT ON
 
-use [trek];
-
--- Create Login
-IF NOT EXISTS (SELECT * FROM sys.server_principals WHERE name = 'DabLogin')
-    CREATE LOGIN [DabLogin] WITH PASSWORD = 'P@ssw0rd!';
-ALTER SERVER ROLE sysadmin ADD MEMBER [DabLogin];
-
--- Create User
-IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = 'DabUser')
-    CREATE USER [DabUser] FOR LOGIN [DabLogin];
-EXEC sp_addrolemember 'db_owner', 'DabUser';
-
 -- Drop tables in reverse order of creation due to foreign key dependencies
 DROP TABLE IF EXISTS Character_Species;
 DROP TABLE IF EXISTS Series_Character;

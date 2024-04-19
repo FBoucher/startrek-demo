@@ -2,9 +2,8 @@
   "$schema": "https://github.com/Azure/data-api-builder/releases/download/v0.9.7/dab.draft.schema.json",
   "data-source": {
     "database-type": "mssql",
-    "connection-string": "Server=localhost;Database=trek;User ID=sa;Password=myPassword!;",
+    "connection-string": "_______________________",
     "options": {
-      "set-session-context": false
     }
   },
   "runtime": {
