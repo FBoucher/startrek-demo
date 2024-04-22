@@ -1,7 +1,8 @@
 services:
 
-  apibox:
+  dab:
     image: "mcr.microsoft.com/azure-databases/data-api-builder:latest"
+    container_name: trekapi
     restart: on-failure
     volumes:
       - "./startrek.json:/App/dab-config.json"
@@ -17,10 +18,14 @@ services:
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: "1rootP@ssword"
-      MSSQL_PID: "Evaluation"
     ports:
       - "1433:1433"
     volumes:
       - ./startrek.sql:/startrek.sql
-      - ./run-initialization.sh:/run-initialization.sh
-    command: ./run-initialization.sh
+    entrypoint:
+      - /bin/bash
+      - -c
+      - |
+        /opt/mssql/bin/sqlservr & sleep 30
+        /opt/mssql-tools/bin/sqlcmd -U sa -P $$MSSQL_SA_PASSWORD -d master -i /startrek.sql
+        sleep infinity
