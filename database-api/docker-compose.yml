@@ -4,6 +4,8 @@ services:
     image: "mcr.microsoft.com/azure-databases/data-api-builder:latest"
     container_name: trekapi
     restart: on-failure
+    environment:
+      MY_CONN_STRING: "Server=host.docker.internal;Initial Catalog=trek;User ID=sa;Password=1rootP@ssword;TrustServerCertificate=True"
     volumes:
       - "./startrek.json:/App/dab-config.json"
     ports:
