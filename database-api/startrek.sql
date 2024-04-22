@@ -1,10 +1,11 @@
-SET NOCOUNT ON
+USE [master]
+GO
 
-CREATE DATABASE trek;
-GO;
+CREATE DATABASE [trek]
+GO
+USE [trek]
+GO
 
-USE trek;
-GO;
 
 -- Drop tables in reverse order of creation due to foreign key dependencies
 DROP TABLE IF EXISTS Character_Species;
