@@ -49,11 +49,11 @@ else
 		await base.OnInitializedAsync();
 		JsonSerializerOptions options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 		
-        var showslist = await httpClient.GetFromJsonAsync<SeriesList>("api/series", options);	
-		var seriesCharacters = await httpClient.GetFromJsonAsync<SeriesCharacterList>("api/Series_Character", options);
-		var characters = await httpClient.GetFromJsonAsync<CharacterList>("api/character", options);
+        var showslist = await httpClient.GetFromJsonAsync<SeriesList>("series", options);	
+		var seriesCharacters = await httpClient.GetFromJsonAsync<SeriesCharacterList>("Series_Character", options);
+		var characters = await httpClient.GetFromJsonAsync<CharacterList>("character", options);
 
-		foreach(var show in showslist.value)  
+		@* foreach(var show in showslist.value)  
 		{
 			foreach(var matchSC in seriesCharacters.value)
 			{
@@ -68,7 +68,22 @@ else
 					}
 				}
 			}
-		}
+		} *@
+
+        showslist.value.ForEach(show =>
+        {
+            seriesCharacters.value.ForEach(matchSC =>
+            {
+                if (show.Id == matchSC.SeriesId)
+                {
+                    var matchingCharacter = characters.value.FirstOrDefault(c => c.Id == matchSC.CharacterId);
+                    if (matchingCharacter != null)
+                    {
+                        show.Characters.value.Add(matchingCharacter);
+                    }
+                }
+            });
+        });
 		shows = showslist;
 	}
 

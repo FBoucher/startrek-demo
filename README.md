@@ -1,7 +1,7 @@
 # startrek-demo
 
 1. dotnet new tool-manifest
-1. dotnet tool install StrawberryShake.Tools
+1. dotnet tool install StrawberryShake.Tools -l
 1. dotnet add package StrawberryShake.Blazor
 2. dotnet graphql init https://localhost:5001/graphql/ -n StartrekClient
 
