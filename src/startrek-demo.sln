@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "txtStartrek", "console\txtStartrek.csproj", "{AF6D5A65-99F7-402D-9136-4ECF70ED7904}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "starttrek-demo", "web\starttrek-demo.csproj", "{D5C3DF73-9D18-4551-9318-CFB7EC732C74}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "startrek-demo", "web\startrek-demo.csproj", "{D5C3DF73-9D18-4551-9318-CFB7EC732C74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
