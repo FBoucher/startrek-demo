@@ -1,26 +1,5 @@
-# startrek-demo
+# Star Trek Demo
 
-1. dotnet new tool-manifest
-1. dotnet tool install StrawberryShake.Tools -l
-1. dotnet add package StrawberryShake.Blazor
-2. dotnet graphql init https://localhost:5001/graphql/ -n StartrekClient
+This is a demo project was used during my talks on Azure Developers .NET Days: [Auto-Generate and Host Data API Builder on Azure Static Web Apps](https://www.youtube.com/watch?v=GO2R7IW6s3k&list=PLI7iePan8aH4cuFgP9YbRODrSEwXNA8Yq&index=13) and [The most minimal API code of all... none](https://www.youtube.com/watch?v=A1H1kVPHs3w&list=PLI7iePan8aH4cuFgP9YbRODrSEwXNA8Yq&index=15).
 
-
-```csharp
-	IEnumerable<IGetRooms_Rooms_Items> result = new List<IGetRooms_Rooms_Items>();
-
-	protected override async Task OnInitializedAsync()
-	{
-		await base.OnInitializedAsync();
-		var temp = await dungeonDemoClient.GetRooms.ExecuteAsync();
-
-		result = temp.Data.Rooms.Items;
-		
-	}
-```
-
-
-docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=rootP@ssword1" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
-
-
-
+It contains a simple `docker-compose` deploy an SQL Server in a first container and Data API Builder (DAB) in a second one. When the database container starts, I run a script to create the database tables and populate them.
