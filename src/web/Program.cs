@@ -6,8 +6,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5000/api/") });
-
 builder.Services.AddStartrekClient()
     .ConfigureHttpClient(client => client.BaseAddress = new Uri("http://localhost:5000/graphql"));
 
