@@ -1,4 +1,6 @@
 @page "/graphql"
+@using Microsoft.AspNetCore.Components.QuickGrid
+
 @inject IStartrekClient startrekClient
 @rendermode InteractiveServer
 
@@ -6,50 +8,54 @@
 
 <h1>Series by GraphQL</h1>
 
-@if (result.Count() <= 0)
+<UseGetCharacters Context="result">
+    <ChildContent>
+        <div class="grid">
+            <QuickGrid Items="result.Characters!.Items.AsQueryable()">
+                <PropertyColumn Property="@(c => c.Name)" Sortable="true" />
+            </QuickGrid>
+        </div>
+    </ChildContent>
+    <ErrorContent>
+        Something went wrong ...<br />
+        @result.First().Message
+    </ErrorContent>
+    <LoadingContent>
+        Loading ...
+    </LoadingContent>
+</UseGetCharacters>
+
+<hr>
+<h2>Flatten Result</h2>
+
+@if (series.Count() <= 0)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Series</th>
-                <th>Characters</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var serie in result)
-            {
-                <tr>
-                    <td>@serie.Name</td>
-                    <td>
-                        <ul>
-                            @foreach (var character in serie.Character.Items)
-                            {
-                                <li>@character.Name</li>
-                            }
-                        </ul>    
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div class="grid">
+        <QuickGrid Items="@flat" Virtualize="true" >
+            <PropertyColumn Property="@(s => s.serie)" Sortable="true" />
+            <PropertyColumn Property="@(s => s.character)" Sortable="true" />
+        </QuickGrid>
+    </div>
 }
 
 
 @code {
-	IEnumerable<IGetCharacterBySeries_Series_Items> result = new List<IGetCharacterBySeries_Series_Items>();
+    IEnumerable<IGetCharacterBySeries_Series_Items> series = new List<IGetCharacterBySeries_Series_Items>();
+    private record flatresult(string serie, string character);
+    IQueryable<flatresult>? flat = null;
 
-	protected override async Task OnInitializedAsync()
-	{
-		await base.OnInitializedAsync();
-		var temp = await startrekClient.GetCharacterBySeries.ExecuteAsync();
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        var temp = await startrekClient.GetCharacterBySeries.ExecuteAsync();
 
-		result = temp.Data.Series.Items;
-		
-	}
+        series = temp.Data.Series.Items;
+        flat = series.SelectMany(s => s.Character.Items.Select(f => new flatresult(s.SerieName, f.CharacterName ))).AsQueryable();
+    }
 }
 
 

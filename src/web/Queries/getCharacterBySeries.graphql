@@ -1,10 +1,10 @@
 query getCharacterBySeries {
   	series {
 		items {
-			Name
+			SerieName: Name
 			character {
 				items {
-					Name
+					CharacterName: Name
 				}
 			}
 		}

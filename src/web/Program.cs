@@ -9,6 +9,9 @@ builder.Services.AddRazorComponents()
 builder.Services.AddStartrekClient()
     .ConfigureHttpClient(client => client.BaseAddress = new Uri("http://localhost:5000/graphql"));
 
+
+builder.Services.AddScoped( sp => new HttpClient { BaseAddress = new Uri("http://localhost:5000/api/") });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

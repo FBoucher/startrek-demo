@@ -1,0 +1,8 @@
+﻿query getCharacters($after: String) {
+    characters(after: $after) {
+        items {
+            Name
+        }
+        endCursor
+    }
+}

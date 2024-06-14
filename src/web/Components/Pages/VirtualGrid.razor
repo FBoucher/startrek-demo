@@ -1,0 +1,94 @@
+@page "/virtualgrid"
+@using Microsoft.AspNetCore.Components.QuickGrid
+
+@inject IStartrekClient startrekClient
+@rendermode InteractiveServer
+
+<PageTitle>Virtualize QuickGrid</PageTitle>
+
+<h1>Virtualize QuickGrid</h1>
+
+<div class="grid">
+    <QuickGrid ItemsProvider="@charactersProvider" Virtualize="true">
+        <PropertyColumn Property="@(s => s.Name)" Sortable="true" />
+    </QuickGrid>
+</div>
+
+<div class="inline-block my-1">
+    Total: <strong>@numResults results</strong>
+</div>
+
+
+@code {
+
+    GridItemsProvider<IGetCharacters_Characters_Items> charactersProvider;
+
+    int numResults;
+    string curChar = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        //charactersProvider = await charactersProvider()
+
+        // charactersProvider = async request =>
+        // {
+        //     var result = await startrekClient.GetCharacters.ExecuteAsync(   request.CancellationToken);
+
+        //     if (result.Data.Characters.Items.Count != numResults && !request.CancellationToken.IsCancellationRequested)
+        //     {
+        //         numResults = result.Data.Characters.Items.Count;
+        //         StateHasChanged();
+        //     }
+
+        //     return GridItemsProviderResult.From<IGetCharacters_Characters_Items>(
+        //         items: result.Data.Characters.Items.ToList<IGetCharacters_Characters_Items>(),
+        //         totalItemCount: numResults);
+        // };
+
+
+        //charactersProvider = await charactersProvider()
+
+        charactersProvider = async request =>
+        {
+            var response = await startrekClient.GetCharacters.ExecuteAsync(curChar, request.CancellationToken);
+
+            if (!string.IsNullOrEmpty(response.Data.Characters.EndCursor))
+                curChar = response.Data.Characters.EndCursor;
+
+            if (response.Data.Characters.Items.Count != numResults && !request.CancellationToken.IsCancellationRequested)
+            {
+                numResults = response.Data.Characters.Items.Count;
+                StateHasChanged();
+            }
+
+            //var lst = result.Data.Characters.Items.Skip<IGetCharacters_Characters_Items>(numResults).Take<IGetCharacters_Characters_Items>(request.Count ?? 0);
+
+            var lstC = response.Data.Characters.Items;
+
+            return GridItemsProviderResult.From<IGetCharacters_Characters_Items>(
+                items: lstC.ToList(),
+                totalItemCount: numResults);
+        };
+    }
+
+
+    // private async ValueTask<ItemsProviderResult<IGetCharacters_Characters_Items>> LoadCharacters(ItemsProviderRequest request)
+    // {
+    //     var result = await startrekClient.GetCharacters.ExecuteAsync(request.CancellationToken);
+
+    //     if (result.Data.Characters.Items.Count != numResults && !request.CancellationToken.IsCancellationRequested)
+    //     {
+    //         numResults = result.Data.Characters.Items.Count;
+    //         StateHasChanged();
+    //     }
+
+    //     var lst = result.Data.Characters.Items.Skip<IGetCharacters_Characters_Items>(request.StartIndex).Take<IGetCharacters_Characters_Items>(5);
+
+    //     return new ItemsProviderResult<IGetCharacters_Characters_Items>(lst, numResults);
+    // }
+
+}
+
+
