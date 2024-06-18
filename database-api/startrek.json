@@ -30,36 +30,6 @@
     }
   },
   "entities": {
-    "Planet":{
-      "source": {
-        "object": "[dbo].[Planet]",
-        "type": "table",
-        "key-fields": [
-          "Id"
-        ]
-      },
-      "graphql": {
-        "enabled": true,
-        "type": {
-          "singular": "Planet",
-          "plural": "Planets"
-        }
-      },
-      "rest": {
-        "enabled": true,
-        "path": "/planet"
-      },
-      "permissions": [
-        {
-          "role": "anonymous",
-          "actions": [
-            {
-              "action": "*"
-            }
-          ]
-        }
-      ]
-    },
     "Actor": {
       "source": {
         "object": "[dbo].[Actor]",

@@ -39,19 +39,9 @@
     
             var planets = new List<Planet>();
             var itemCnt = 0;
-
-            // if (response.Data.Planets.Items.Count != numResults && !request.CancellationToken.IsCancellationRequested)
-            // {
-            //     numResults = response.Data.Planets.Items.Count;
-            //     StateHasChanged();
-            // }
-
-            if (response.Data != null)
-            {
-                planets = response.Data.Planets.Items.Select(p => new Planet { Id = p.Id, Name = p.Name, Coordinates = p.Coordinates }).ToList();
-                itemCnt = numResults;
-            }
-                
+           
+                planets = response!.Data.Planets.Items.Select(p => new Planet { Id = p.Id, Name = p.Name, Coordinates = p.Coordinates }).ToList();
+                itemCnt = numResults;               
 
             return GridItemsProviderResult.From(
                 items: planets,
@@ -59,6 +49,7 @@
         };
 
         numResults = (await startrekClient.Getmyplanets.ExecuteAsync(null, null)).Data.Planets.Items.Count;
+
     }
 
 
