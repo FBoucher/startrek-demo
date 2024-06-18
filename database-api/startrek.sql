@@ -59,9 +59,9 @@ CREATE TABLE Character_Species (
 );
 
 CREATE TABLE Planet (
-    PlanetId INT PRIMARY KEY,
+    Id INT PRIMARY KEY,
     Name NVARCHAR(255) NOT NULL,
-    Coodinates NVARCHAR(255) NOT NULL
+    Coordinates NVARCHAR(255) NOT NULL
 );
 
 
@@ -245,7 +245,7 @@ INSERT INTO Character_Species (CharacterId, SpeciesId) VALUES
     (37, 1); -- Travis Mayweather is Human
 
 
-INSERT INTO Planet (PlanetId, Name, Coodinates) VALUES 
+INSERT INTO Planet (Id, Name, Coordinates) VALUES 
     (1, 'Larkin', '346908,860630,646007'),
     (2, 'Kling', '906215,6740,68201'),
     (3, 'Cremin', '428109,708341,346073'),
@@ -1246,4 +1246,3 @@ INSERT INTO Planet (PlanetId, Name, Coodinates) VALUES
     (998, 'Wilderman', '398067,979332,322411'),
     (999, 'Ondricka', '492861,614092,928111');
 
-    

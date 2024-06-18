@@ -1,5 +1,6 @@
 @page "/virtualgrid"
 @using Microsoft.AspNetCore.Components.QuickGrid
+@using startrekdemo.Domain
 
 @inject IStartrekClient startrekClient
 @rendermode InteractiveServer
@@ -8,11 +9,13 @@
 
 <h1>Virtualize QuickGrid</h1>
 
-<div class="grid">
-    <QuickGrid ItemsProvider="@charactersProvider" Virtualize="true">
+ <div class="grid">
+    <QuickGrid ItemsProvider="@planetProvider" Virtualize="true">
+        <PropertyColumn Property="@(s => s.Id)" Sortable="true" />
         <PropertyColumn Property="@(s => s.Name)" Sortable="true" />
-    </QuickGrid>
-</div>
+        <PropertyColumn Property="@(s => s.Coordinates)" Sortable="true" />
+     </QuickGrid>
+ </div>
 
 <div class="inline-block my-1">
     Total: <strong>@numResults results</strong>
@@ -21,73 +24,45 @@
 
 @code {
 
-    GridItemsProvider<IGetCharacters_Characters_Items> charactersProvider;
+    GridItemsProvider<Planet> planetProvider;
 
-    int numResults;
-    string curChar = null;
+    int numResults = 0;
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
 
-        //charactersProvider = await charactersProvider()
-
-        // charactersProvider = async request =>
-        // {
-        //     var result = await startrekClient.GetCharacters.ExecuteAsync(   request.CancellationToken);
-
-        //     if (result.Data.Characters.Items.Count != numResults && !request.CancellationToken.IsCancellationRequested)
-        //     {
-        //         numResults = result.Data.Characters.Items.Count;
-        //         StateHasChanged();
-        //     }
-
-        //     return GridItemsProviderResult.From<IGetCharacters_Characters_Items>(
-        //         items: result.Data.Characters.Items.ToList<IGetCharacters_Characters_Items>(),
-        //         totalItemCount: numResults);
-        // };
-
-
-        //charactersProvider = await charactersProvider()
-
-        charactersProvider = async request =>
+        planetProvider = async request =>
         {
-            var response = await startrekClient.GetCharacters.ExecuteAsync(curChar, request.CancellationToken);
+            var response = await startrekClient.Getmyplanets.ExecuteAsync(request.StartIndex, request.Count, request.CancellationToken);
 
-            if (!string.IsNullOrEmpty(response.Data.Characters.EndCursor))
-                curChar = response.Data.Characters.EndCursor;
+    
+            var planets = new List<Planet>();
+            var itemCnt = 0;
 
-            if (response.Data.Characters.Items.Count != numResults && !request.CancellationToken.IsCancellationRequested)
+            // if (response.Data.Planets.Items.Count != numResults && !request.CancellationToken.IsCancellationRequested)
+            // {
+            //     numResults = response.Data.Planets.Items.Count;
+            //     StateHasChanged();
+            // }
+
+            if (response.Data != null)
             {
-                numResults = response.Data.Characters.Items.Count;
-                StateHasChanged();
+                planets = response.Data.Planets.Items.Select(p => new Planet { Id = p.Id, Name = p.Name, Coordinates = p.Coordinates }).ToList();
+                itemCnt = numResults;
             }
+                
 
-            //var lst = result.Data.Characters.Items.Skip<IGetCharacters_Characters_Items>(numResults).Take<IGetCharacters_Characters_Items>(request.Count ?? 0);
-
-            var lstC = response.Data.Characters.Items;
-
-            return GridItemsProviderResult.From<IGetCharacters_Characters_Items>(
-                items: lstC.ToList(),
-                totalItemCount: numResults);
+            return GridItemsProviderResult.From(
+                items: planets,
+                totalItemCount: itemCnt);
         };
+
+        numResults = (await startrekClient.Getmyplanets.ExecuteAsync(null, null)).Data.Planets.Items.Count;
     }
 
 
-    // private async ValueTask<ItemsProviderResult<IGetCharacters_Characters_Items>> LoadCharacters(ItemsProviderRequest request)
-    // {
-    //     var result = await startrekClient.GetCharacters.ExecuteAsync(request.CancellationToken);
 
-    //     if (result.Data.Characters.Items.Count != numResults && !request.CancellationToken.IsCancellationRequested)
-    //     {
-    //         numResults = result.Data.Characters.Items.Count;
-    //         StateHasChanged();
-    //     }
-
-    //     var lst = result.Data.Characters.Items.Skip<IGetCharacters_Characters_Items>(request.StartIndex).Take<IGetCharacters_Characters_Items>(5);
-
-    //     return new ItemsProviderResult<IGetCharacters_Characters_Items>(lst, numResults);
-    // }
 
 }
 

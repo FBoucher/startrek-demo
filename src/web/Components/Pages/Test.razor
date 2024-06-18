@@ -1,6 +1,7 @@
 @page "/test"
 
 @using Microsoft.AspNetCore.Components.QuickGrid
+@using System.Text.Json
 @using startrekdemo.Domain
 
 @inject HttpClient httpClient
@@ -11,8 +12,10 @@
 <h1>Virtualize QuickGrid</h1>
 
 <div class="grid">
-    <QuickGrid ItemsProvider="@charactersProvider" Virtualize="true">
+    <QuickGrid ItemsProvider="@planetsProvider" Virtualize="true">
+        <PropertyColumn Property="@(s => s.Id)" Sortable="true" />
         <PropertyColumn Property="@(s => s.Name)" Sortable="true" />
+        <PropertyColumn Property="@(s => s.Coordinates)" Sortable="true" />
     </QuickGrid>
 </div>
 
@@ -23,34 +26,33 @@
 
 @code {
 
-    GridItemsProvider<Character> charactersProvider;
+    GridItemsProvider<Planet> planetsProvider;
 
     int numResults;
     string curChar = null;
+    string url = "planet?first=100000";
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
 
-        charactersProvider = async request =>
+        planetsProvider = async request =>
         {
-            var option = new Dictionary<string, object?>
-                                        {
-                                            {"skip", request.StartIndex },
-                                            {"limit", request.Count }
-                                        };
-            var response = await httpClient.GetFromJsonAsync<CharacterList>("character", request.CancellationToken);
 
-            // Separately display the item count
+            var response = await httpClient.GetFromJsonAsync<PlanetList>($"/planet?$first={request.Count}&$after={curChar}", request.CancellationToken);
+            
+            // if (!string.IsNullOrEmpty(response.nextLink))
+            //     url = response.nextLink;
+
             if (response.value.Count != numResults && !request.CancellationToken.IsCancellationRequested)
             {
-                numResults = response.value.Count;
+                numResults += response.value.Count;
                 StateHasChanged();
             }
 
             return GridItemsProviderResult.From(
                        items: response!.value,
-                       totalItemCount: response.value.Count);
+                       totalItemCount: numResults);
         };
     }
 

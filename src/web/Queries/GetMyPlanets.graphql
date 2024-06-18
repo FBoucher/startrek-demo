@@ -1,0 +1,14 @@
+﻿query Getmyplanets($skip: Int, $take: Int) {
+  planets(skip: $skip, take: $take, sortBy: "name") {
+    items {
+      id
+      name
+      coordinates
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    totalCount
+  }
+}

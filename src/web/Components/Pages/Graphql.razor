@@ -8,11 +8,13 @@
 
 <h1>Series by GraphQL</h1>
 
-<UseGetCharacters Context="result">
+<UseGetPlanets Context="result">
     <ChildContent>
         <div class="grid">
-            <QuickGrid Items="result.Characters!.Items.AsQueryable()">
-                <PropertyColumn Property="@(c => c.Name)" Sortable="true" />
+            <QuickGrid Items="result.Planets2!.AsQueryable()">
+                <PropertyColumn Property="@(s => s.Id)" Sortable="true" />
+                <PropertyColumn Property="@(s => s.Name)" Sortable="true" />
+                <PropertyColumn Property="@(s => s.Coordinates)" Sortable="true" />
             </QuickGrid>
         </div>
     </ChildContent>
@@ -23,38 +25,38 @@
     <LoadingContent>
         Loading ...
     </LoadingContent>
-</UseGetCharacters>
+</UseGetPlanets>
+@* 
+  <hr>
+  <h2>Flatten Result</h2>
 
-<hr>
-<h2>Flatten Result</h2>
-
-@if (series.Count() <= 0)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <div class="grid">
-        <QuickGrid Items="@flat" Virtualize="true" >
-            <PropertyColumn Property="@(s => s.serie)" Sortable="true" />
-            <PropertyColumn Property="@(s => s.character)" Sortable="true" />
-        </QuickGrid>
-    </div>
-}
+  @if (series.Count() <= 0)
+  {
+      <p><em>Loading...</em></p>
+  }
+  else
+  {
+      <div class="grid">
+          <QuickGrid Items="@flat" Virtualize="true" >
+              <PropertyColumn Property="@(s => s.serie)" Sortable="true" />
+              <PropertyColumn Property="@(s => s.character)" Sortable="true" />
+          </QuickGrid>
+      </div>
+  } *@
 
 
 @code {
-    IEnumerable<IGetCharacterBySeries_Series_Items> series = new List<IGetCharacterBySeries_Series_Items>();
-    private record flatresult(string serie, string character);
-    IQueryable<flatresult>? flat = null;
+    //IEnumerable<IGetPlanets_Planets2_Planet> series = new List<IGetPlanets_Planets2_Planet>();
+    //private record flatresult(string serie, string character);
+    //IQueryable<flatresult>? flat = null;
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        var temp = await startrekClient.GetCharacterBySeries.ExecuteAsync();
+        // var temp = await startrekClient.GetPlanets.ExecuteAsync();
 
-        series = temp.Data.Series.Items;
-        flat = series.SelectMany(s => s.Character.Items.Select(f => new flatresult(s.SerieName, f.CharacterName ))).AsQueryable();
+        // series = temp.Data.Planets2.AsQueryable();
+        // flat = series.SelectMany(s => s.Character.Items.Select(f => new flatresult(s.SerieName, f.CharacterName ))).AsQueryable();
     }
 }
 
