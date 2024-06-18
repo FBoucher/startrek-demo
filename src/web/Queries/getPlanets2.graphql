@@ -1,7 +1,0 @@
-﻿query GetPlanets {
-    planets2 {
-        id
-        name
-        coordinates
-    }
-}

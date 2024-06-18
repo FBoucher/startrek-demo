@@ -5,47 +5,47 @@ using HotChocolate.Types.Pagination;
 
 public class Query
 {
-	private const int _NUM_PLANETS = 1000;
+	private const int NUM_ACTORS = 1000;
 
 	[UseOffsetPaging(IncludeTotalCount = true)]
-	public CollectionSegment<Planet> GetPlanets(int? skip, int? take, string sortBy)
+	public CollectionSegment<Actor> GetActors(int? skip, int? take, string sortBy)
 	{
-		IEnumerable<Planet>	planets = ExecuteQuery(skip,take); 
+		IEnumerable<Actor>	Actors = ExecuteQuery(skip,take); 
 
-		var pageInfo = new CollectionSegmentInfo((GetPlanetTotalCount() > skip + take), (skip>0));
+		var pageInfo = new CollectionSegmentInfo((GetActorTotalCount() > skip + take), (skip>0));
 
-		var collectionSegment = new CollectionSegment<Planet>(
-			(IReadOnlyCollection<Planet>)planets,
+		var collectionSegment = new CollectionSegment<Actor>(
+			(IReadOnlyCollection<Actor>)Actors,
 			pageInfo,
-			ct => ValueTask.FromResult(GetPlanetTotalCount())
+			ct => ValueTask.FromResult(GetActorTotalCount())
 			);
 
 		return collectionSegment;
 
 	}
 
-	private int GetPlanetTotalCount(){
-		return _NUM_PLANETS;
+	private int GetActorTotalCount(){
+		return NUM_ACTORS;
 	}
 
-	public IEnumerable<Planet> GetPlanets2()
+	public IEnumerable<Actor> GetActors2()
 	{
-		var gen = new PlanetGen();
-		return gen.Generate(_NUM_PLANETS); 
+		var gen = new ActorGen();
+		return gen.Generate(NUM_ACTORS); 
 	}
 
-	private IEnumerable<Planet> ExecuteQuery(int? skip, int? take){
-		var gen = new PlanetGen();
-		IEnumerable<Planet> planets = null;
+	private IEnumerable<Actor> ExecuteQuery(int? skip, int? take){
+		var gen = new ActorGen();
+		IEnumerable<Actor> Actors = null;
 
 		if (skip != null && take != null)
 		{ 
-			planets = gen.Generate(_NUM_PLANETS).Skip(skip.Value).Take(take.Value); 
+			Actors = gen.Generate(NUM_ACTORS).Skip(skip.Value).Take(take.Value); 
 		}
 		else
 		{ 
-			planets = gen.Generate(_NUM_PLANETS); 
+			Actors = gen.Generate(NUM_ACTORS); 
 		}
-		return planets;
+		return Actors;
 	}
 }

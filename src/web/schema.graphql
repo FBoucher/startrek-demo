@@ -3,16 +3,16 @@ schema {
 }
 
 type Query {
-  planets(skip: Int take: Int sortBy: String!): PlanetsCollectionSegment
-  planets2: [Planet!]!
+  actors(skip: Int take: Int sortBy: String!): ActorsCollectionSegment
+  actors2: [Actor!]!
 }
 
 "A segment of a collection."
-type PlanetsCollectionSegment {
+type ActorsCollectionSegment {
   "Information to aid in pagination."
   pageInfo: CollectionSegmentInfo!
   "A flattened list of the items."
-  items: [Planet!]
+  items: [Actor!]
   totalCount: Int!
 }
 
@@ -24,8 +24,8 @@ type CollectionSegmentInfo {
   hasPreviousPage: Boolean!
 }
 
-type Planet {
+type Actor {
   id: Int!
   name: String!
-  coordinates: String!
+  birthYear: Int!
 }

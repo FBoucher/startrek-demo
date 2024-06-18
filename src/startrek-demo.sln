@@ -5,7 +5,9 @@ VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "txtStartrek", "console\txtStartrek.csproj", "{AF6D5A65-99F7-402D-9136-4ECF70ED7904}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "startrek-demo", "web\startrek-demo.csproj", "{D5C3DF73-9D18-4551-9318-CFB7EC732C74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "startrek-demo", "web\startrek-demo.csproj", "{D5C3DF73-9D18-4551-9318-CFB7EC732C74}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotChoco", "HotChoco\HotChoco.csproj", "{BE9FCBC5-51F7-40E7-9B06-B1555550AB56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D5C3DF73-9D18-4551-9318-CFB7EC732C74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5C3DF73-9D18-4551-9318-CFB7EC732C74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5C3DF73-9D18-4551-9318-CFB7EC732C74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE9FCBC5-51F7-40E7-9B06-B1555550AB56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE9FCBC5-51F7-40E7-9B06-B1555550AB56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE9FCBC5-51F7-40E7-9B06-B1555550AB56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE9FCBC5-51F7-40E7-9B06-B1555550AB56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

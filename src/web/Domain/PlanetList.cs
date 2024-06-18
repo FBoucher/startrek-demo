@@ -1,8 +1,7 @@
 ﻿namespace startrekdemo.Domain
 {
-    public class PlanetList
+    public class ActorList
     {
-        public List<Planet> value { get; set; } = new List<Planet>();
-        public string? nextLink { get; set; }
+        public List<Actor> value { get; set; } = new List<Actor>();
     }
 }

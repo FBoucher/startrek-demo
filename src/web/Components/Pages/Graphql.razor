@@ -8,13 +8,13 @@
 
 <h1>Series by GraphQL</h1>
 
-<UseGetPlanets Context="result">
+<UseGetActors Context="result">
     <ChildContent>
         <div class="grid">
-            <QuickGrid Items="result.Planets2!.AsQueryable()">
-                <PropertyColumn Property="@(s => s.Id)" Sortable="true" />
-                <PropertyColumn Property="@(s => s.Name)" Sortable="true" />
-                <PropertyColumn Property="@(s => s.Coordinates)" Sortable="true" />
+            <QuickGrid Items="result.Actors!.Items.AsQueryable()">
+                <PropertyColumn Property="@(a => a.Id)" Sortable="true" />
+                <PropertyColumn Property="@(a => a.Name)" Sortable="true" />
+                <PropertyColumn Property="@(a => a.BirthYear)" Sortable="true" />
             </QuickGrid>
         </div>
     </ChildContent>
@@ -25,38 +25,13 @@
     <LoadingContent>
         Loading ...
     </LoadingContent>
-</UseGetPlanets>
-@* 
-  <hr>
-  <h2>Flatten Result</h2>
-
-  @if (series.Count() <= 0)
-  {
-      <p><em>Loading...</em></p>
-  }
-  else
-  {
-      <div class="grid">
-          <QuickGrid Items="@flat" Virtualize="true" >
-              <PropertyColumn Property="@(s => s.serie)" Sortable="true" />
-              <PropertyColumn Property="@(s => s.character)" Sortable="true" />
-          </QuickGrid>
-      </div>
-  } *@
-
+</UseGetActors>
 
 @code {
-    //IEnumerable<IGetPlanets_Planets2_Planet> series = new List<IGetPlanets_Planets2_Planet>();
-    //private record flatresult(string serie, string character);
-    //IQueryable<flatresult>? flat = null;
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        // var temp = await startrekClient.GetPlanets.ExecuteAsync();
-
-        // series = temp.Data.Planets2.AsQueryable();
-        // flat = series.SelectMany(s => s.Character.Items.Select(f => new flatresult(s.SerieName, f.CharacterName ))).AsQueryable();
     }
 }
 

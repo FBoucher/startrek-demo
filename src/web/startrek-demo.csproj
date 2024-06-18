@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -9,25 +9,16 @@
 
   <ItemGroup>
     <GraphQL Remove="Queries\getPlanets.graphql" />
-    <GraphQL Remove="Queries\getPlanets2.graphql" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Queries\GetMyPlanets.graphql" />
+    <None Remove="Queries\GetActors.graphql" />
     <None Remove="Queries\getPlanets.graphql" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid" Version="8.0.6" />
     <PackageReference Include="StrawberryShake.Blazor" Version="13.9.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <GenerateGraphQLCodeItems Remove="Queries\GetMyPlanets.graphql" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <GraphQL Include="Queries\getCharacterBySeries.graphql.bak" />
   </ItemGroup>
 
 </Project>

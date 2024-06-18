@@ -1,9 +1,9 @@
-﻿query Getmyplanets($skip: Int, $take: Int) {
-  planets(skip: $skip, take: $take, sortBy: "name") {
+﻿query GetActors($skip: Int, $take: Int) {
+  actors(skip: $skip, take: $take, sortBy: "name") {
     items {
       id
       name
-      coordinates
+      birthYear
     }
     pageInfo {
       hasNextPage

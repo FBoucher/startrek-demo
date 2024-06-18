@@ -9,13 +9,13 @@
 
 <h1>Virtualize QuickGrid</h1>
 
- <div class="grid">
-    <QuickGrid ItemsProvider="@planetProvider" Virtualize="true">
-        <PropertyColumn Property="@(s => s.Id)" Sortable="true" />
-        <PropertyColumn Property="@(s => s.Name)" Sortable="true" />
-        <PropertyColumn Property="@(s => s.Coordinates)" Sortable="true" />
-     </QuickGrid>
- </div>
+<div class="grid">
+    <QuickGrid ItemsProvider="@actorProvider" Virtualize="true">
+        <PropertyColumn Property="@(a => a.Id)" Sortable="true" />
+        <PropertyColumn Property="@(a => a.Name)" Sortable="true" />
+        <PropertyColumn Property="@(a => a.BirthYear)" Sortable="true" />
+    </QuickGrid>
+</div>
 
 <div class="inline-block my-1">
     Total: <strong>@numResults results</strong>
@@ -24,7 +24,7 @@
 
 @code {
 
-    GridItemsProvider<Planet> planetProvider;
+    GridItemsProvider<Actor> actorProvider;
 
     int numResults = 0;
 
@@ -32,29 +32,20 @@
     {
         await base.OnInitializedAsync();
 
-        planetProvider = async request =>
+        actorProvider = async request =>
         {
-            var response = await startrekClient.Getmyplanets.ExecuteAsync(request.StartIndex, request.Count, request.CancellationToken);
-
-    
-            var planets = new List<Planet>();
-            var itemCnt = 0;
-           
-                planets = response!.Data.Planets.Items.Select(p => new Planet { Id = p.Id, Name = p.Name, Coordinates = p.Coordinates }).ToList();
-                itemCnt = numResults;               
+            var response = await startrekClient.GetActors.ExecuteAsync(request.StartIndex, request.Count, request.CancellationToken);           
+            var actors = response!.Data.Actors.Items.Select(p => new Actor { Id = p.Id, Name = p.Name, BirthYear = p.BirthYear }).ToList();
+            var itemCnt = numResults;               
 
             return GridItemsProviderResult.From(
-                items: planets,
+                items: actors,
                 totalItemCount: itemCnt);
         };
 
-        numResults = (await startrekClient.Getmyplanets.ExecuteAsync(null, null)).Data.Planets.Items.Count;
+        numResults = (await startrekClient.GetActors.ExecuteAsync(null, null)).Data.Actors.Items.Count;
 
     }
 
-
-
-
 }
-
 
