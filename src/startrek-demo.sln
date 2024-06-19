@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "txtStartrek", "console\txtS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "startrek-demo", "web\startrek-demo.csproj", "{D5C3DF73-9D18-4551-9318-CFB7EC732C74}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotChoco", "HotChoco\HotChoco.csproj", "{BE9FCBC5-51F7-40E7-9B06-B1555550AB56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "chocoSpock", "chocoSpock\chocoSpock.csproj", "{BE9FCBC5-51F7-40E7-9B06-B1555550AB56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

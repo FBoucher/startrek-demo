@@ -1,14 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>e7b9327a-d1bc-411a-81a9-669dbec1e454</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="HotChocolate.AspNetCore" Version="13.9.6" />
     <PackageReference Include="Bogus" Version="35.5.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
 
 </Project>
