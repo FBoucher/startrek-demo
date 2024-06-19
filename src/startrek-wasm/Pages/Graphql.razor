@@ -1,0 +1,37 @@
+@page "/graphql"
+@using Microsoft.AspNetCore.Components.QuickGrid
+
+@inject IStartrekClient startrekClient
+
+<PageTitle>Series by GraphQL</PageTitle>
+
+<h1>Series by GraphQL</h1>
+
+<UseGetActors Context="result">
+    <ChildContent>
+        <div class="grid">
+            <QuickGrid Items="result.Actors!.Items.AsQueryable()">
+                <PropertyColumn Property="@(a => a.Id)" Sortable="true" />
+                <PropertyColumn Property="@(a => a.Name)" Sortable="true" />
+                <PropertyColumn Property="@(a => a.BirthYear)" Sortable="true" />
+            </QuickGrid>
+        </div>
+    </ChildContent>
+    <ErrorContent>
+        Something went wrong ...<br />
+        @result.First().Message
+    </ErrorContent>
+    <LoadingContent>
+        Loading ...
+    </LoadingContent>
+</UseGetActors>
+
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+}
+
+

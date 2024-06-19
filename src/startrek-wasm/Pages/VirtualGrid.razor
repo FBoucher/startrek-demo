@@ -1,16 +1,16 @@
 @page "/virtualgrid"
 @using Microsoft.AspNetCore.Components.QuickGrid
-@using startrekdemo.Domain
-
 @inject IStartrekClient startrekClient
-@rendermode InteractiveServer
+
 
 
 <PageTitle>Virtualize QuickGrid</PageTitle>
 
 <h3>Virtualized QuickGrid</h3>
 
-<div class="grid">
+
+
+<div class="grid" tabindex="-1">
     <QuickGrid ItemsProvider="@actorProvider" Virtualize="true">
         <PropertyColumn Property="@(a => a.Id)" Sortable="false" />
         <PropertyColumn Property="@(a => a.Name)"   Sortable="true" 
@@ -20,13 +20,14 @@
     </QuickGrid>
 </div>
 
-<div class="inline-block my-1">
-    Total: <strong>@numResults results</strong>
+<div class="my-2"
+    <div class="inline-block my-1">
+        Total: <strong>@numResults results</strong>
+    </div>
 </div>
 
 
 @code {
-
     GridItemsProvider<IGetActors_Actors_Items> actorProvider;
 
     int numResults = 0;
@@ -37,7 +38,7 @@
         {
             var response = await startrekClient.GetActors.ExecuteAsync(request.StartIndex, request.Count, request.CancellationToken);           
 
-            if (response!.Data.Actors.TotalCount != numResults && !request.CancellationToken.IsCancellationRequested)
+            if (numResults == 0 && !request.CancellationToken.IsCancellationRequested)
             {
                 numResults = response!.Data.Actors.TotalCount;
                 StateHasChanged();
@@ -48,8 +49,6 @@
                     totalItemCount: response!.Data.Actors.TotalCount
             );
         };
-
-        //numResults = (await startrekClient.GetActors.ExecuteAsync(null, null)).Data.Actors.TotalCount;
 
     }
 

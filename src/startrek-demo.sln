@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "startrek-demo", "web\startr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "chocoSpock", "chocoSpock\chocoSpock.csproj", "{BE9FCBC5-51F7-40E7-9B06-B1555550AB56}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "startrek-wasm", "startrek-wasm\startrek-wasm.csproj", "{E694A628-B39A-4157-AE4E-8E7217A34283}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{BE9FCBC5-51F7-40E7-9B06-B1555550AB56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE9FCBC5-51F7-40E7-9B06-B1555550AB56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE9FCBC5-51F7-40E7-9B06-B1555550AB56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E694A628-B39A-4157-AE4E-8E7217A34283}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E694A628-B39A-4157-AE4E-8E7217A34283}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E694A628-B39A-4157-AE4E-8E7217A34283}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E694A628-B39A-4157-AE4E-8E7217A34283}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

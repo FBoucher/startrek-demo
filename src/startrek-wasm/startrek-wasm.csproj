@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+	  <RootNamespace>startrekwasm</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove=".graphqlrc.json.bak" />
+    <None Remove="Queries\GetActors.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include=".graphqlrc.json.bak" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.6" PrivateAssets="all" />
+	<PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid" Version="8.0.6" />
+	<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.HttpHandler" Version="3.2.1" />
+	<PackageReference Include="StrawberryShake.Blazor" Version="13.9.6" />
+  </ItemGroup>
+
+</Project>

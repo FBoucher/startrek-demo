@@ -1,0 +1,14 @@
+﻿query GetActors($skip: Int, $take: Int) {
+  actors(skip: $skip, take: $take, sortBy: "name") {
+    items {
+      id
+      name
+      birthYear
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    totalCount
+  }
+}
