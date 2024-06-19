@@ -8,6 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <GraphQL Remove="Queries\getPlanets.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Queries\GetActors.graphql" />
+    <None Remove="Queries\getPlanets.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid" Version="8.0.6" />
     <PackageReference Include="StrawberryShake.Blazor" Version="13.9.0" />
   </ItemGroup>
 

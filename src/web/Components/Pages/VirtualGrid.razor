@@ -1,0 +1,51 @@
+@page "/virtualgrid"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using startrekdemo.Domain
+
+@inject IStartrekClient startrekClient
+@rendermode InteractiveServer
+
+<PageTitle>Virtualize QuickGrid</PageTitle>
+
+<h3>Virtualized QuickGrid</h3>
+
+<div class="grid">
+    <QuickGrid ItemsProvider="@actorProvider" Virtualize="true">
+        <PropertyColumn Property="@(a => a.Id)" Sortable="true" />
+        <PropertyColumn Property="@(a => a.Name)" Sortable="true" />
+        <PropertyColumn Property="@(a => a.BirthYear)" Sortable="true" />
+    </QuickGrid>
+</div>
+
+<div class="inline-block my-1">
+    Total: <strong>@numResults results</strong>
+</div>
+
+
+@code {
+
+    GridItemsProvider<Actor> actorProvider;
+
+    int numResults = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        actorProvider = async request =>
+        {
+            var response = await startrekClient.GetActors.ExecuteAsync(request.StartIndex, request.Count, request.CancellationToken);           
+            var actors = response!.Data.Actors.Items.Select(p => new Actor { Id = p.Id, Name = p.Name, BirthYear = p.BirthYear }).ToList();
+            var itemCnt = numResults;               
+
+            return GridItemsProviderResult.From(
+                items: actors,
+                totalItemCount: itemCnt);
+        };
+
+        numResults = (await startrekClient.GetActors.ExecuteAsync(null, null)).Data.Actors.Items.Count;
+
+    }
+
+}
+

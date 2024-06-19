@@ -1,4 +1,6 @@
 @page "/graphql"
+@using Microsoft.AspNetCore.Components.QuickGrid
+
 @inject IStartrekClient startrekClient
 @rendermode InteractiveServer
 
@@ -6,50 +8,31 @@
 
 <h1>Series by GraphQL</h1>
 
-@if (result.Count() <= 0)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Series</th>
-                <th>Characters</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var serie in result)
-            {
-                <tr>
-                    <td>@serie.Name</td>
-                    <td>
-                        <ul>
-                            @foreach (var character in serie.Character.Items)
-                            {
-                                <li>@character.Name</li>
-                            }
-                        </ul>    
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-
+<UseGetActors Context="result">
+    <ChildContent>
+        <div class="grid">
+            <QuickGrid Items="result.Actors!.Items.AsQueryable()">
+                <PropertyColumn Property="@(a => a.Id)" Sortable="true" />
+                <PropertyColumn Property="@(a => a.Name)" Sortable="true" />
+                <PropertyColumn Property="@(a => a.BirthYear)" Sortable="true" />
+            </QuickGrid>
+        </div>
+    </ChildContent>
+    <ErrorContent>
+        Something went wrong ...<br />
+        @result.First().Message
+    </ErrorContent>
+    <LoadingContent>
+        Loading ...
+    </LoadingContent>
+</UseGetActors>
 
 @code {
-	IEnumerable<IGetCharacterBySeries_Series_Items> result = new List<IGetCharacterBySeries_Series_Items>();
 
-	protected override async Task OnInitializedAsync()
-	{
-		await base.OnInitializedAsync();
-		var temp = await startrekClient.GetCharacterBySeries.ExecuteAsync();
-
-		result = temp.Data.Series.Items;
-		
-	}
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
 }
 
 

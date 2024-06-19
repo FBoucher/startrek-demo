@@ -4,7 +4,7 @@
   "extensions": {
     "strawberryShake": {
       "name": "StartrekClient",
-      "url": "http://localhost:5000/graphql/",
+      "url": "http://localhost:5041/graphql/",
       "records": {
         "inputs": false,
         "entities": false
