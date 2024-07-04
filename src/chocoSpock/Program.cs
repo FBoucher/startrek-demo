@@ -8,17 +8,6 @@ var conStrBuilder = new SqlConnectionStringBuilder(
 
 conStrBuilder.Password = builder.Configuration["SA_PWD"];
 
-//builder.Services.AddCors(options =>
-//{
-//    options.AddDefaultPolicy(builder =>
-//    {
-//        builder.AllowAnyOrigin()
-//            .AllowAnyMethod()
-//            .AllowAnyHeader()
-//            .SetIsOriginAllowed(origin => true);
-//    });
-//});
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,

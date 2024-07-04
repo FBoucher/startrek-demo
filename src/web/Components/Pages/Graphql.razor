@@ -4,9 +4,9 @@
 @inject IStartrekClient startrekClient
 @rendermode InteractiveServer
 
-<PageTitle>Series by GraphQL</PageTitle>
+<PageTitle>Actors by GraphQL</PageTitle>
 
-<h1>Series by GraphQL</h1>
+<h1>Actors by GraphQL</h1>
 
 <UseGetActors Context="result">
     <ChildContent>
@@ -26,13 +26,4 @@
         Loading ...
     </LoadingContent>
 </UseGetActors>
-
-@code {
-
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-    }
-}
-
 
