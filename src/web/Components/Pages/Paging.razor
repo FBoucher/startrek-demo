@@ -1,0 +1,35 @@
+@page "/paging"
+@using Microsoft.AspNetCore.Components.QuickGrid
+
+@inject IStartrekClient startrekClient
+@rendermode InteractiveServer
+
+<PageTitle>Actors by GraphQL</PageTitle>
+
+<h1>Actors by GraphQL</h1>
+
+<UseGetActors Context="result">
+    <ChildContent>
+        <div class="grid">
+            <QuickGrid Items="result.Actors!.Items.AsQueryable()" Pagination="@pagination">
+                <PropertyColumn Property="@(a => a.Id)" Sortable="true" />
+                <PropertyColumn Property="@(a => a.Name)" Sortable="true" />
+                <PropertyColumn Property="@(a => a.BirthYear)" Sortable="true" />
+            </QuickGrid>
+        </div>
+        <Paginator State="@pagination"/>
+    </ChildContent>
+    <ErrorContent>
+        Something went wrong ...<br />
+        @result.First().Message
+    </ErrorContent>
+    <LoadingContent>
+        Loading ...
+    </LoadingContent>
+</UseGetActors>
+
+@code {
+
+    PaginationState pagination = new PaginationState { ItemsPerPage = 10 };
+
+}
