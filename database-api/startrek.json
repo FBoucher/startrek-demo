@@ -155,7 +155,7 @@
           ]
         },
         "actor": {
-          "cardinality": "many",
+          "cardinality": "one",
           "target.entity": "Actor",
           "source.fields": [
             "ActorId"
