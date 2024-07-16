@@ -17,6 +17,8 @@ Those demos were used in videos and blog posts.
 
 The folder [database-api](database-api/) contains a simple `docker-compose up` that deploys an SQL Server in a first container and Data API Builder (DAB) in a second one. When the database container starts, it runs automatically a SQL script `startrek.sql` to create the database tables and populate the Star Trek tables. Finally the DAB container starts and connects to the SQL Server database to expose a REST API and a GraphQL API.
 
+To run it locally, create a file `.env` in the folder [database-api](database-api/) (see the file `.env.sample` for an example) to set the password of the the database user **sa**. Then execute the command `docker-compose up` from that same folder to start the SQL Server database and APIs containers. This should take a moment to download the container images and start everything. The GraphQL API will be available at `http://localhost:5000/graphql`.
+
 ### Simple .NET Console App using GraphQL
 
 The folder [src/console/](src/console/) contains a console application the uses the GraphQL client generated with the StrawberryShake package to query the GraphQL API exposed by DAB. The application is a simple console application that queries the GraphQL API to get the list of Star Trek characters by series.
