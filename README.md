@@ -21,17 +21,21 @@ To run it locally, create a file `.env` in the folder [database-api](database-ap
 
 ### Simple .NET Console App using GraphQL
 
-The folder [src/console/](src/console/) contains a console application the uses the GraphQL client generated with the StrawberryShake package to query the GraphQL API exposed by DAB. The application is a simple console application that queries the GraphQL API to get the list of Star Trek characters by series.
+The folder [src/console/](src/console/) contains a console application the uses the GraphQL client generated with the StrawberryShake package to query the GraphQL API exposed by DAB. The application is a simple console application that queries the GraphQL API to get the list of Star Trek characters by series. To run it locally you need to have the [database and APIs](#database-and-apis-in-containers) containers running.
 
 ### Blazor WebAssembly App using GraphQL and QuickGrid
 
-The folder [src/startrek-wasm/](src/startrek-wasm/) contains a Blazor WebAssembly website to demonstrate how to use GraphQL with QuickGrid. The website uses the generated component and client, using the StrawberryShake.Blazor package to query the GraphQL API to display the list of Actors. A second page shows how to use QuickGrid with the `virtualize` feature to display a large list of actors.
+The folder [src/startrek-wasm/](src/startrek-wasm/) contains a Blazor WebAssembly website to demonstrate how to use GraphQL with QuickGrid. The website uses the generated component and client, using the StrawberryShake.Blazor package to query the GraphQL API to display the list of Actors. A second page shows how to use QuickGrid with the `virtualize` feature to display a large list of actors. To run it locally you need to have the [chocoSpock](#chocospock-is-a-custom-graphql-endpoint) GraphQL API running.
 
 
 ### Blazor website App using GraphQL and QuickGrid (same as above but with a server-side Blazor)
 
-The folder [src/web/](src/web/) contains a Blazor website to demonstrate how to use GraphQL with QuickGrid. The website uses the generated component and client, using the StrawberryShake.Blazor package to query the GraphQL API to display the list of Actors. A second page shows how to use QuickGrid with the `virtualize` feature to display a large list of actors.
+The folder [src/web/](src/web/) contains a Blazor website to demonstrate how to use GraphQL with QuickGrid. The website uses the generated component and client, using the StrawberryShake.Blazor package to query the GraphQL API to display the list of Actors. A second page shows how to use QuickGrid with the `virtualize` feature to display a large list of actors. To run it locally you need to have the [chocoSpock](#chocospock-is-a-custom-graphql-endpoint) GraphQL API running.
 
 ### chocoSpock is a custom GraphQL endpoint
 
 The folder [src/chocoSpock/](src/chocoSpock/) contains a simple GraphQL endpoint that implements the required `skip` and `take` arguments to allow virtualization with Blazor QuickGrid. The minimal API uses `HotChocolate` nuget package.
+
+To run it locally, you need to have the startrek database up and running. Create a file `.env` in the folder [database-api](database-api/) (see the file `.env.sample` for an example) to set the password of the the database user **sa**. Then execute the command `docker-compose up` from that same folder to start the SQL Server database and APIs containers. This should take a moment to download the container images and start everything.
+
+Now that the database is running, you can start the chocoSpock API by running the command `dotnet run` in a second terminal from the folder [src/chocoSpock/](src/chocoSpock/). The GraphQL API will be available at `http://localhost:5041/graphql`.
