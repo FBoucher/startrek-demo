@@ -124,10 +124,10 @@
           "cardinality": "many",
           "target.entity": "Series",
           "source.fields": [
-            "id"
+            "Id"
           ],
           "target.fields": [
-            "id"
+            "Id"
           ],
           "linking.object": "dbo.series_character",
           "linking.source.fields": [
@@ -141,10 +141,10 @@
           "cardinality": "many",
           "target.entity": "Species",
           "source.fields": [
-            "id"
+            "Id"
           ],
           "target.fields": [
-            "id"
+            "Id"
           ],
           "linking.object": "dbo.character_species",
           "linking.source.fields": [
@@ -155,7 +155,7 @@
           ]
         },
         "actor": {
-          "cardinality": "many",
+          "cardinality": "one",
           "target.entity": "Actor",
           "source.fields": [
             "ActorId"
@@ -210,10 +210,10 @@
           "cardinality": "many",
           "target.entity": "Character",
           "source.fields": [
-            "id"
+            "Id"
           ],
           "target.fields": [
-            "id"
+            "Id"
           ],
           "linking.object": "dbo.series_character",
           "linking.source.fields": [
@@ -267,10 +267,10 @@
           "cardinality": "many",
           "target.entity": "Character",
           "source.fields": [
-            "id"
+            "Id"
           ],
           "target.fields": [
-            "id"
+            "Id"
           ],
           "linking.object": "dbo.character_species",
           "linking.source.fields": [
